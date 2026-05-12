@@ -1,0 +1,41 @@
+{
+  "entities": {
+    "Photo": {
+      "title": "Photo",
+      "description": "A single photo memory with metadata.",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "albumId": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["url", "title", "userId", "createdAt"]
+    },
+    "Album": {
+      "title": "Album",
+      "description": "A collection of photos.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "coverId": { "type": "string" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "photos": {
+      "schema": "Photo",
+      "description": "Store all uploaded photos."
+    },
+    "albums": {
+      "schema": "Album",
+      "description": "Store user created albums."
+    }
+  }
+}
