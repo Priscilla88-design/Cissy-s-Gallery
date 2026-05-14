@@ -298,39 +298,45 @@ export default function App() {
               className="flex flex-col items-center justify-center py-24 text-center"
               id="empty-state"
             >
-              <div className="rounded-full bg-ink/5 p-8 text-ink/20">
-                <Camera size={48} />
-              </div>
-              <h2 className="mt-6 text-2xl font-serif text-ink/60">Your gallery is empty</h2>
-              <p className="mt-2 text-ink/30 max-w-md mx-auto">
-                Begin your collection by adding your first memory. Use the "Add Memory" button to get started. 
-                (Note: Your photos are stored securely in the cloud).
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={seedSamplePhotos}
-                  disabled={isSeeding}
-                  className="rounded-full border border-ink/10 px-8 py-3 text-sm font-medium hover:bg-ink/5 transition-colors disabled:opacity-50"
-                  id="add-paris-btn"
-                >
-                  {isSeeding ? 'Adding...' : 'Add Paris Travel Memory'}
-                </button>
-                <button
-                  onClick={seedNaturePhotos}
-                  disabled={isSeeding}
-                  className="rounded-full border border-ink/10 px-8 py-3 text-sm font-medium hover:bg-ink/5 transition-colors disabled:opacity-50"
-                  id="add-nature-btn"
-                >
-                  {isSeeding ? 'Adding...' : 'Add Nature Memories'}
-                </button>
-                <button
-                  onClick={seedAllSamples}
-                  disabled={isSeeding}
-                  className="rounded-full border border-ink/10 px-8 py-3 text-sm font-medium hover:bg-ink/5 transition-colors disabled:opacity-50"
-                  id="import-samples-btn"
-                >
-                  {isSeeding ? 'Importing...' : 'Import Sample Collection'}
-                </button>
+              <div className="rounded-2xl bg-white p-12 shadow-sm border border-ink/5 max-w-2xl">
+                <div className="flex justify-center mb-8">
+                  <div className="relative">
+                    <div className="absolute inset-0 rounded-full bg-olive/10 animate-ping" />
+                    <div className="relative rounded-full bg-paper p-8 text-olive border border-olive/20">
+                      <Camera size={48} />
+                    </div>
+                  </div>
+                </div>
+                <h2 className="text-3xl font-serif text-ink italic">A Canvas Awaiting Its First Frame</h2>
+                <p className="mt-4 text-ink/40 leading-relaxed font-serif italic">
+                  Your collection is currently a silent gallery. Begin by uploading your own memories, 
+                  or explore with our curated sample collections to see how "Life In Frames" preserves your stories.
+                </p>
+                
+                <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <button
+                    onClick={seedNaturePhotos}
+                    disabled={isSeeding}
+                    className="flex items-center justify-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-medium text-paper shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 disabled:opacity-50"
+                    id="add-nature-btn"
+                  >
+                    <Plus size={18} />
+                    <span>{isSeeding ? 'Preserving...' : 'Load Nature Portfolio'}</span>
+                  </button>
+                  <button
+                    onClick={seedAllSamples}
+                    disabled={isSeeding}
+                    className="flex items-center justify-center gap-3 rounded-full border border-ink/10 px-8 py-4 text-sm font-medium text-ink hover:bg-ink/5 transition-all disabled:opacity-50"
+                    id="import-samples-btn"
+                  >
+                    <BookOpen size={18} />
+                    <span>{isSeeding ? 'Importing...' : 'View Full Sample Set'}</span>
+                  </button>
+                </div>
+                
+                <p className="mt-8 text-[10px] uppercase tracking-[0.2em] text-ink/20 font-medium">
+                  Securely stored in your personal cloud.
+                </p>
               </div>
             </motion.div>
           )}
