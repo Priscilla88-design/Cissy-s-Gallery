@@ -159,7 +159,7 @@ export default function App() {
           transition={{ repeat: Infinity, duration: 1.5 }}
           className="font-serif text-2xl italic text-ink/20"
         >
-          Moments...
+          Life In Frames...
         </motion.div>
       </div>
     );
@@ -171,15 +171,37 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-paper" id="app-root">
+      {/* Hero Banner */}
+      <div className="relative h-64 w-full bg-ink overflow-hidden" id="hero-banner">
+        <img 
+          src="https://images.unsplash.com/photo-1493863641943-9b68992a8d07?auto=format&fit=crop&q=80&w=2000" 
+          alt="Banner" 
+          className="absolute inset-0 h-full w-full object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-paper to-transparent" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="flex flex-col items-center"
+          >
+            <div className="mb-4 rounded-full bg-white/10 p-4 backdrop-blur-md border border-white/20">
+              <Camera size={32} className="text-white" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-serif text-white drop-shadow-sm">Life In Frames</h1>
+            <p className="mt-2 text-sm md:text-base text-white/80 font-medium tracking-widest uppercase">Capture Life, Cherish Forever</p>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="sticky top-0 z-40 bg-paper/80 backdrop-blur-xl border-b border-ink/5">
         <div className="mx-auto max-w-7xl px-6 py-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
-              <div>
-                <h1 className="text-4xl font-serif text-ink">Moments</h1>
-                <p className="mt-1 text-sm text-ink/40 italic">A curated diary of your life.</p>
-              </div>
+              <Camera size={24} className="text-olive" />
+              <h1 className="text-2xl font-serif text-ink tracking-tight">Life In Frames</h1>
               <button 
                 onClick={signOut}
                 className="ml-4 p-2 text-ink/20 hover:text-ink/60 transition-colors"
