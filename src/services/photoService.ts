@@ -5,11 +5,11 @@ import { handleFirestoreError, OperationType } from './firestoreErrors';
 
 const COLLECTION_NAME = 'photos';
 
-export function subscribeToPhotos(userId: string, callback: (photos: Photo[]) => void) {
+export function subscribeToPhotos(userId: string, albumId: string, callback: (photos: Photo[]) => void) {
   const q = query(
     collection(db, COLLECTION_NAME),
     where('userId', '==', userId),
-    orderBy('createdAt', 'desc')
+    where('albumId', '==', albumId)
   );
 
   return onSnapshot(q, (snapshot) => {
@@ -17,20 +17,23 @@ export function subscribeToPhotos(userId: string, callback: (photos: Photo[]) =>
       id: doc.id,
       ...doc.data()
     })) as Photo[];
-    callback(photos);
+    
+    // Sort in-memory as requested to avoid manual index requirement
+    const sortedPhotos = photos.sort((a, b) => b.createdAt - a.createdAt);
+    callback(sortedPhotos);
   }, (error) => {
     handleFirestoreError(error, OperationType.LIST, COLLECTION_NAME);
   });
 }
 
-export async function addPhoto(url: string, title: string, description: string, userId: string, category: string): Promise<string> {
+export async function addPhoto(url: string, title: string, description: string, userId: string, category: string, albumId: string): Promise<string> {
   const photoData = {
-    url,
+    url, // This is the base64 string
     title,
     description,
     userId,
     category,
-    albumId: 'all',
+    albumId,
     createdAt: Date.now(),
   };
 

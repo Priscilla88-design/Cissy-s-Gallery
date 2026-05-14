@@ -1,10 +1,11 @@
 export interface Photo {
   id: string;
-  url: string;
+  url: string; // This will be the base64 string
   title: string;
   description: string;
   category: Category;
   albumId: string;
+  userId: string;
   createdAt: number;
 }
 
@@ -12,7 +13,8 @@ export interface Album {
   id: string;
   name: string;
   description: string;
-  coverId?: string; // ID of the photo used as cover
+  ownerId: string;
+  coverUrl?: string;
   createdAt: number;
 }
 

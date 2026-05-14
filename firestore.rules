@@ -30,25 +30,30 @@ service cloud.firestore {
     // --- Validation Blueprints ---
     
     function isValidPhoto(data) {
-      return data.keys().hasAll(['url', 'title', 'userId', 'createdAt'])
-        && data.keys().size() >= 4
-        && data.url is string && data.url.size() <= 1000
+      return data.keys().hasAll(['url', 'title', 'userId', 'createdAt', 'albumId'])
+        && data.keys().size() >= 5
+        && data.url is string && data.url.size() <= 1500000
         && data.title is string && data.title.size() <= 200
-        && (data.get('description', '') is string && data.description.size() <= 2000)
+        && (data.get('description', '') is string && data.get('description', '').size() <= 2000)
         && data.userId == request.auth.uid
+        && data.albumId is string && data.albumId.size() <= 128
         && data.createdAt is number;
     }
 
     function isValidAlbum(data) {
-      return data.keys().hasAll(['name', 'userId', 'createdAt'])
+      return data.keys().hasAll(['name', 'ownerId', 'createdAt'])
         && data.keys().size() >= 3
         && data.name is string && data.name.size() <= 100
-        && (data.get('description', '') is string && data.description.size() <= 1000)
-        && data.userId == request.auth.uid
+        && (data.get('description', '') is string && data.get('description', '').size() <= 1000)
+        && data.ownerId == request.auth.uid
         && data.createdAt is number;
     }
 
     // --- Collections ---
+
+    match /test/connection {
+      allow read: if true;
+    }
 
     match /photos/{photoId} {
       allow get: if isOwner(existing().userId);
@@ -56,7 +61,8 @@ service cloud.firestore {
       
       allow create: if isSignedIn() 
         && isValidId(photoId)
-        && isValidPhoto(incoming());
+        && isValidPhoto(incoming())
+        && get(/databases/$(database)/documents/albums/$(incoming().albumId)).data.ownerId == request.auth.uid;
         
       allow update: if isOwner(existing().userId)
         && isValidPhoto(incoming())
@@ -64,30 +70,30 @@ service cloud.firestore {
         && incoming().createdAt == existing().createdAt
         && (
           // Action: Edit metadata
-          incoming().diff(existing()).affectedKeys().hasOnly(['title', 'description', 'albumId'])
+          incoming().diff(existing()).affectedKeys().hasOnly(['title', 'description', 'category', 'albumId'])
         );
         
       allow delete: if isOwner(existing().userId);
     }
 
     match /albums/{albumId} {
-      allow get: if isOwner(existing().userId);
-      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow get: if isOwner(existing().ownerId);
+      allow list: if isSignedIn() && resource.data.ownerId == request.auth.uid;
       
       allow create: if isSignedIn()
         && isValidId(albumId)
         && isValidAlbum(incoming());
         
-      allow update: if isOwner(existing().userId)
+      allow update: if isOwner(existing().ownerId)
         && isValidAlbum(incoming())
-        && incoming().userId == existing().userId
+        && incoming().ownerId == existing().ownerId
         && incoming().createdAt == existing().createdAt
         && (
           // Action: Edit details
-          incoming().diff(existing()).affectedKeys().hasOnly(['name', 'description', 'coverId'])
+          incoming().diff(existing()).affectedKeys().hasOnly(['name', 'description', 'coverUrl'])
         );
         
-      allow delete: if isOwner(existing().userId);
+      allow delete: if isOwner(existing().ownerId);
     }
   }
 }

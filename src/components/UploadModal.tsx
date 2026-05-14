@@ -3,31 +3,41 @@ import { Upload, X, Loader2, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { CATEGORIES } from '../constants';
-import { Category } from '../types';
+import { Category, Album } from '../types';
+import { compressImage } from '../lib/imageCompression';
 
 interface UploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpload: (files: File[], title: string, description: string, category: Category) => Promise<void>;
+  onUpload: (files: File[], title: string, description: string, category: Category, albumId: string) => Promise<void>;
+  albums: Album[];
+  defaultAlbumId?: string;
 }
 
-export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
+export function UploadModal({ isOpen, onClose, onUpload, albums, defaultAlbumId }: UploadModalProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState<Category>('Moments');
+  const [albumId, setAlbumId] = useState(defaultAlbumId || '');
   const [isUploading, setIsUploading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
+  // Update albumId when defaultAlbumId changes or modal opens
+  useState(() => {
+    if (defaultAlbumId) setAlbumId(defaultAlbumId);
+  });
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { 'image/*': [] },
+    multiple: true,
     onDrop: (acceptedFiles) => setSelectedFiles(prev => [...prev, ...acceptedFiles])
   } as any);
 
   const handleUpload = async () => {
-    if (selectedFiles.length === 0) return;
+    if (selectedFiles.length === 0 || !albumId) return;
     setIsUploading(true);
     try {
-      await onUpload(selectedFiles, title, description, category);
+      await onUpload(selectedFiles, title, description, category, albumId);
       setSelectedFiles([]);
       setTitle('');
       setDescription('');
@@ -116,6 +126,24 @@ export function UploadModal({ isOpen, onClose, onUpload }: UploadModalProps) {
                   >
                     {CATEGORIES.filter(c => c !== 'All').map(c => (
                       <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ink/30" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold uppercase tracking-wider text-ink/40">Album</label>
+                <div className="relative mt-1">
+                  <select
+                    value={albumId}
+                    onChange={(e) => setAlbumId(e.target.value)}
+                    className="w-full appearance-none rounded-xl border border-ink/10 bg-white px-4 py-3 text-sm focus:border-olive outline-none transition-colors pr-10"
+                    id="album-select"
+                  >
+                    <option value="" disabled>Select an album</option>
+                    {albums.map(a => (
+                      <option key={a.id} value={a.id}>{a.name}</option>
                     ))}
                   </select>
                   <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ink/30" />

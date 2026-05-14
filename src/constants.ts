@@ -54,6 +54,42 @@ export const INITIAL_PHOTOS: Photo[] = [
     category: 'Travel',
     albumId: 'all',
     createdAt: Date.now() - 6000000,
+  },
+  {
+    id: '7',
+    url: 'https://images.unsplash.com/photo-1431274172761-fca41d930114?auto=format&fit=crop&q=80&w=1200',
+    title: 'Parisian Sunset',
+    description: 'The Eiffel Tower bathed in the warm glow of a golden sky.',
+    category: 'Travel',
+    albumId: 'all',
+    createdAt: Date.now() - 7000000,
+  },
+  {
+    id: '8',
+    url: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&q=80&w=1200',
+    title: 'Crimson Tide',
+    description: 'A breathtaking sunset painting the sky in deep shades of rose and gold.',
+    category: 'Nature',
+    albumId: 'all',
+    createdAt: Date.now() - 8000000,
+  },
+  {
+    id: '9',
+    url: 'https://images.unsplash.com/photo-1531366930477-4fbd23ceaf88?auto=format&fit=crop&q=80&w=1200',
+    title: 'Aurora Heart',
+    description: 'The celestial dance of the Northern Lights above a silent shore.',
+    category: 'Nature',
+    albumId: 'all',
+    createdAt: Date.now() - 9000000,
+  },
+  {
+    id: '10',
+    url: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&q=80&w=1200',
+    title: 'Alpine Sanctuary',
+    description: 'A peaceful village tucked away in the heart of the Swiss Alps.',
+    category: 'Nature',
+    albumId: 'all',
+    createdAt: Date.now() - 10000000,
   }
 ];
 

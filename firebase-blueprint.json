@@ -21,11 +21,11 @@
       "properties": {
         "name": { "type": "string" },
         "description": { "type": "string" },
-        "coverId": { "type": "string" },
-        "userId": { "type": "string" },
+        "coverUrl": { "type": "string" },
+        "ownerId": { "type": "string" },
         "createdAt": { "type": "number" }
       },
-      "required": ["name", "userId", "createdAt"]
+      "required": ["name", "ownerId", "createdAt"]
     }
   },
   "firestore": {
