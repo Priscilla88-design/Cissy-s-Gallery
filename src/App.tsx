@@ -200,11 +200,18 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 py-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-4">
-              <Camera size={24} className="text-olive" />
-              <h1 className="text-2xl font-serif text-ink tracking-tight">Life In Frames</h1>
+              {user.photoURL && (
+                <img src={user.photoURL} alt={user.displayName || 'User'} className="h-8 w-8 rounded-full border border-ink/10" />
+              )}
+              <div>
+                <h1 className="text-2xl font-serif text-ink tracking-tight">Life In Frames</h1>
+                {user.displayName && (
+                  <p className="text-[10px] uppercase tracking-widest text-ink/40 font-medium -mt-1">{user.displayName}</p>
+                )}
+              </div>
               <button 
                 onClick={signOut}
-                className="ml-4 p-2 text-ink/20 hover:text-ink/60 transition-colors"
+                className="ml-2 p-2 text-ink/20 hover:text-ink/60 transition-colors"
                 title="Sign out"
               >
                 <LogOut size={18} />

@@ -8,6 +8,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'A crisp morning at the edge of the mountains, finding peace in the stillness.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 1000000,
   },
   {
@@ -17,6 +18,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'The way the light hits the field just before the sun disappears.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 2000000,
   },
   {
@@ -26,6 +28,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'Listening to the ocean breathe in a forgotten cove.',
     category: 'Travel',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 3000000,
   },
   {
@@ -35,6 +38,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'The smell of wet earth and the vibrant change of seasons.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 4000000,
   },
   {
@@ -44,6 +48,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'Walking through a forest that has seen a thousand years pass.',
     category: 'Moments',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 5000000,
   },
   {
@@ -53,6 +58,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'Standing above the clouds, where the air is thin and the world is wide.',
     category: 'Travel',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 6000000,
   },
   {
@@ -62,6 +68,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'The Eiffel Tower bathed in the warm glow of a golden sky.',
     category: 'Travel',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 7000000,
   },
   {
@@ -71,6 +78,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'A breathtaking sunset painting the sky in deep shades of rose and gold.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 8000000,
   },
   {
@@ -80,6 +88,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'The celestial dance of the Northern Lights above a silent shore.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 9000000,
   },
   {
@@ -89,6 +98,7 @@ export const INITIAL_PHOTOS: Photo[] = [
     description: 'A peaceful village tucked away in the heart of the Swiss Alps.',
     category: 'Nature',
     albumId: 'all',
+    userId: 'sample',
     createdAt: Date.now() - 10000000,
   }
 ];

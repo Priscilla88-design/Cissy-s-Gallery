@@ -1,4 +1,4 @@
-# Security Specification for Moments App
+# Security Specification for Life In Frames App
 
 ## Data Invariants
 1. A photo must have a valid `userId` matching the creator.
